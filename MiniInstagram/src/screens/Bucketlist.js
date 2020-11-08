@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
+import {View, Text, StyleSheet,FlatList,TouchableOpacity} from 'react-native';
+//import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import Input from '../components/Input';
@@ -15,7 +15,7 @@ const Bucketlist = () => {
     {id: '2', title: 'Paris'},
     {id: '3', title: 'Barcelona'},
   ];
-  const renderList = wishList.map(({itemList})=>(<ListItem item={itemList} />));
+  const renderList = wishList.map(itemList=>(<ListItem item={itemList} />));
   //]); //dummy data to be changed
   return (
     <View style={styles.container}>
@@ -37,12 +37,12 @@ const Bucketlist = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.list}>
-          <FlatList
+          {/* <FlatList
             keyExtractor={(item) => item.id}
             data={wishList}
-            renderItem={({itemList}) => (<ListItem item={itemList} />)}
-          />
-         
+            renderItem={itemList => (<ListItem item={itemList} />)}
+          /> */}
+         {renderList}
         </View>
       </KeyboardAwareScrollView>
     </View>

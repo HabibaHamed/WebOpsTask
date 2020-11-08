@@ -35,14 +35,15 @@ const App = () => {
               name="ApplicationTab"
               component={ApplicationTab}
               options={{
-                headerTitleAlign: 'center',
-                headerStyle: {
-                  backgroundColor: Colors.headerColor,
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
+                // headerTitleAlign: 'center',
+                // headerStyle: {
+                //   backgroundColor: Colors.headerColor,
+                // },
+                // headerTintColor: '#fff',
+                // headerTitleStyle: {
+                //   fontWeight: 'bold',
+                // },
+                headerShown:false
               }}
             />
           ) : (

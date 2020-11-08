@@ -5,7 +5,7 @@ import Colors from '../constants/Colors';
 const ListItem = ({item}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.wishItem}>Barcelona</Text>
+      <Text style={styles.wishItem}>{item.title}</Text>
     </View>
   );
 };

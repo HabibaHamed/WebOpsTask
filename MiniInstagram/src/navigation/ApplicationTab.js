@@ -25,31 +25,44 @@ const getHeaderTitle = (route) => {
 
 const ApplicationTab = ({navigation, route}) => {
   React.useLayoutEffect(() => {
-    navigation.setOptions({headerTitle: getHeaderTitle(route)});
+    const header = getHeaderTitle(route);
+    header !== 'NewsFeed'
+      ? navigation.setOptions({
+          headerShown: true,
+          headerTitle: header,
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: Colors.headerColor,
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        })
+      : navigation.setOptions({headerShown: false});
   }, [navigation, route]);
 
   return (
     <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
 
-        if (route.name === 'NewsFeedStack') {
-          iconName = 'home';
-        } else if (route.name === 'Bucketlist') {
-          iconName = 'map-marker';
-        }
-        else if (route.name === 'Profile') {
-          iconName = 'user';
-        }
-        return <Icon name={iconName} size={size} color={color} />;
-      },
-    })}
-    tabBarOptions={{
-      activeTintColor: Colors.secondaryColor,
-      inactiveTintColor: 'gray',
-      keyboardHidesTabBar: true
-    }}>
+          if (route.name === 'NewsFeedStack') {
+            iconName = 'home';
+          } else if (route.name === 'Bucketlist') {
+            iconName = 'map-marker';
+          } else if (route.name === 'Profile') {
+            iconName = 'user';
+          }
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: Colors.secondaryColor,
+        inactiveTintColor: 'gray',
+        keyboardHidesTabBar: true,
+      }}>
       <Tab.Screen name="NewsFeedStack" component={NewsFeedStack} />
       <Tab.Screen name="Bucketlist" component={Bucketlist} />
       <Tab.Screen name="Profile" component={Profile} />
