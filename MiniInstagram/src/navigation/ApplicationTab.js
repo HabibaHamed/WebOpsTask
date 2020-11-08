@@ -1,21 +1,20 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import NewsFeed from '../screens/NewsFeed';
+import NewsFeedStack from '../navigation/NewsFeedStack';
 import Bucketlist from '../screens/Bucketlist';
 import Profile from '../screens/Profile';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Colors from '../constants/Colors';
 
 const Tab = createBottomTabNavigator();
 
 const getHeaderTitle = (route) => {
-  // If the focused route is not found, we need to assume it's the initial screen
-  // This can happen during if there hasn't been any navigation inside the screen
-  // In our case, it's "Feed" as that's the first screen inside the navigator
-  const routeName = getFocusedRouteNameFromRoute(route) ?? 'NewsFeed';
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'NewsFeedStack';
 
   switch (routeName) {
-    case 'NewsFeed':
+    case 'NewsFeedStack':
       return 'NewsFeed';
     case 'Profile':
       return 'Profile';
@@ -30,8 +29,28 @@ const ApplicationTab = ({navigation, route}) => {
   }, [navigation, route]);
 
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="NewsFeed" component={NewsFeed} />
+    <Tab.Navigator
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+
+        if (route.name === 'NewsFeedStack') {
+          iconName = 'home';
+        } else if (route.name === 'Bucketlist') {
+          iconName = 'map-marker';
+        }
+        else if (route.name === 'Profile') {
+          iconName = 'user';
+        }
+        return <Icon name={iconName} size={size} color={color} />;
+      },
+    })}
+    tabBarOptions={{
+      activeTintColor: Colors.secondaryColor,
+      inactiveTintColor: 'gray',
+      keyboardHidesTabBar: true
+    }}>
+      <Tab.Screen name="NewsFeedStack" component={NewsFeedStack} />
       <Tab.Screen name="Bucketlist" component={Bucketlist} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

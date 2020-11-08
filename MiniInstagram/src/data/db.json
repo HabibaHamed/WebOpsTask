@@ -1,0 +1,6 @@
+{
+    "posts": [
+      { "id": 1, "destination": "Venice", "author": "habiba.hamed" ,"image":"dummy image"}
+    ],
+    "profile": { "username": "habiba.hamed" , "password":"123456","name":"Habiba Hamed"}
+  }
