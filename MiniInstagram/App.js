@@ -5,20 +5,26 @@ import ApplicationTab from './src/navigation/ApplicationTab';
 import AuthenticationStack from './src/navigation/AuthenticationStack';
 import {createStackNavigator} from '@react-navigation/stack';
 import Colors from './src/constants/Colors';
-//import {Provider} from 'react-redux';
-// import {configureStore} from '@reduxjs/toolkit';
+import configureAppStore from './src/store/store';
+import {Provider } from 'react-redux';
+import store from './src/store/store';
 // import {applyMiddleware} from 'redux';
+// import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 // import createSagaMiddleware from 'redux-saga'
 // import rootReducer from './src/store/reducers/rootReducers';
 // import mySaga from './src/store/sagas';
 
-//store and middleware initialization
+
+// //store and middleware initialization
 // const sagaMiddleware = createSagaMiddleware()
+// const middlewares = [sagaMiddleware];
+// sagaMiddleware.run(mySaga);
 // const store = configureStore({
 //   reducer: rootReducer,
-//   middleware: applyMiddleware(sagaMiddleware)
+//   middleware: [...getDefaultMiddleware, ...middlewares]
 // });
-// sagaMiddleware.run(mySaga);
+//const store = configureAppStore();
+
 
 const Stack = createStackNavigator();
 
@@ -27,7 +33,7 @@ let isSignedIn = true;
 
 const App = () => {
   return (
- //   <Provider store={store}>
+    <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
           {isSignedIn ? (
@@ -45,6 +51,7 @@ const App = () => {
                 // },
                 headerShown:false
               }}
+              
             />
           ) : (
             <Stack.Screen
@@ -57,7 +64,7 @@ const App = () => {
           )}
         </Stack.Navigator>
       </NavigationContainer>
- //   </Provider>
+    </Provider>
   );
 };
 

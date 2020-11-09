@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import NewsFeedStack from '../navigation/NewsFeedStack';
@@ -7,9 +7,12 @@ import Profile from '../screens/Profile';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../constants/Colors';
+import { ActivityIndicator } from 'react-native';
+import ActionTypes from '../constants/ActionTypes';
+import {useDispatch} from 'react-redux';
+import store from '../store/store';
 
 const Tab = createBottomTabNavigator();
-
 const getHeaderTitle = (route) => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'NewsFeedStack';
 
@@ -24,6 +27,7 @@ const getHeaderTitle = (route) => {
 };
 
 const ApplicationTab = ({navigation, route}) => {
+  
   React.useLayoutEffect(() => {
     const header = getHeaderTitle(route);
     header !== 'NewsFeed'

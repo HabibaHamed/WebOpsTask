@@ -10,10 +10,10 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../constants/Colors';
 
-const ImagePicker = ({image, picked}) => {
-  let pickedFlag = image.key===picked;
-  const [isPicked, setIsPicked] = useState({picked});
-  const toggleChoice = () => setIsPicked((previousState) => !previousState);
+const ImagePicker = ({image, togglePicked}) => {
+  //let pickedFlag = image.key===picked;
+  const [isPicked, setIsPicked] = useState(false);
+  const toggleChoice = () => {setIsPicked((previousState) => !previousState);togglePicked(image.key,isPicked)};
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   //const toggleChoice = () =>(picked=!picked);
@@ -22,7 +22,7 @@ const ImagePicker = ({image, picked}) => {
       style={[
         styles.container,
         {
-          borderColor: image.key == isPicked ? 'lightgrey' : 'white',
+          borderColor: image.picked ? 'lightgrey' : 'white',
           borderBottomWidth: 3,
         },
       ]}
@@ -38,7 +38,7 @@ const ImagePicker = ({image, picked}) => {
           },
         ]}
       />
-      {image.key == isPicked && (
+      {image.picked && (
         <Icon name={'check'} color={Colors.secondaryColor} size={20}></Icon>
       )}
     </TouchableOpacity>
