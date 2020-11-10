@@ -12,8 +12,8 @@ import Colors from '../constants/Colors';
 
 const ImagePicker = ({image, togglePicked}) => {
   //let pickedFlag = image.key===picked;
-  const [isPicked, setIsPicked] = useState(false);
-  const toggleChoice = () => {setIsPicked((previousState) => !previousState);togglePicked(image.key,isPicked)};
+  const [isPicked, setIsPicked] = useState(image.picked);
+  const toggleChoice = () => {setIsPicked((previousState) => !previousState);console.log(isPicked);togglePicked(image.key,isPicked)};
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   //const toggleChoice = () =>(picked=!picked);

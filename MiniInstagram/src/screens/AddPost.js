@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import ImagePicker from '../components/ImagePicker';
 import {Picker} from '@react-native-picker/picker';
@@ -13,13 +14,28 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useSelector} from 'react-redux';
 
 const AddPost = ({navigation}) => {
-  const temp = useSelector((state) => state.posts);
+  //const temp = useSelector((state) => state.posts);
   //console.log(temp);
   const [wish, setWish] = useState('');
   const [images, setImages] = useState([
-    {key: 1, dist: require('../assets/images/venice.jpg'), picked: false},
-    {key: 2, dist: require('../assets/images/egypt.jpg'), picked: false},
-    {key: 3, dist: require('../assets/images/paris.jpg'), picked: false},
+    {
+      key: 1,
+      dist: require('../assets/images/venice.jpg'),
+      picked: false,
+      imageName: 'italy',
+    },
+    {
+      key: 2,
+      dist: require('../assets/images/egypt.jpg'),
+      picked: false,
+      imageName: 'egypt',
+    },
+    {
+      key: 3,
+      dist: require('../assets/images/paris.jpg'),
+      picked: false,
+      imageName: 'france',
+    },
   ]);
   const bucketList = [
     {id: '1', title: 'Venice'},
@@ -28,6 +44,7 @@ const AddPost = ({navigation}) => {
   ];
   const [picked, setPicked] = useState(0);
   const togglePicked = (imageKey, isPicked) => {
+    console.log('key', imageKey);
     setImages(
       images.map((image) =>
         image.key == imageKey
@@ -35,6 +52,29 @@ const AddPost = ({navigation}) => {
           : {...image, picked: false},
       ),
     );
+  };
+
+  const newPost = () => {
+    const pickedImageName = '';
+    images.forEach(function (image) {
+      if (image.picked) {
+        pickedImageName = image.name;
+      }
+    });
+    if (pickedImageName) {
+      //object payload
+      const newPostObj = {
+        username: 'habiba.hamed',
+        days: Math.floor(Math.random() * 100),
+        picture: 'default profile',
+        image: pickedImageName,
+        likes: Math.floor(Math.random() * 100),
+        destination: wish,
+      };
+      //dispatch();
+    } else {
+      Alert.alert('Please pick an image to be posted');
+    }
   };
   const renderImages = images.map((image) => {
     return (
@@ -61,8 +101,8 @@ const AddPost = ({navigation}) => {
           {renderList}
         </Picker>
         <TouchableOpacity
-          style={styles.addPostContainer}
-          onPress={() => navigation.navigate('NewsFeed')}>
+          style={styles.addPostContainer} //navigation.navigate('NewsFeed')}>
+          onPress={newPost}>
           <Icon name="add" size={40} color="white" />
           <Text style={styles.addPostText}>Add Post</Text>
         </TouchableOpacity>

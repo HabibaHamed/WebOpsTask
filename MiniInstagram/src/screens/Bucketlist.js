@@ -12,24 +12,14 @@ import Colors from '../constants/Colors';
 
 const Bucketlist = () => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
   const {bucketlist,isLoading} = useSelector((state) => state.bucketlist);
-  
-  //console.log(bucketlist);
+
   const [wish, setWish] = useState('');
-  // const [list, setList] = useState([
-  // const wishList = [
-  //   {id: '1', title: 'Venice'},
-  //   {id: '2', title: 'Paris'},
-  //   {id: '3', title: 'Barcelona'},
-  // ];
 
   const addNewWish =()=>{
-    //console.log('add the post');
     const updatedList = [...bucketlist,wish];
-    //console.log('updated'+updatedList);
     dispatch({type:'ADDTO_BUCKETLIST',updatedList})
-    //console.log(listState);
   };
   useEffect(() => {     
    // dispatch({type:'CLEAR_BUCKETLIST'});

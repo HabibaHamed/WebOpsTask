@@ -3,32 +3,15 @@ import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 const apiUrl = "http://localhost:3000";
 const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://10.0.2.2:3000', //to be changed to localhost after finishing debugging
   headers: {
       'Content-Type': 'application/json'
   },
 })
-// export const fetchPosts =  () => async()=> {
-//   await api.get("/posts")
-//     .then((response) => {
-//       // handle success
-//       console.log(response);
-//       return response;
-//     })
-//     .catch(function (error) {
-//       // handle error
-//       console.log(error);
-//       Alert.alert('Error', error);
-//     })
-//     .then(function () {
-//       // always executed
-//     });
-// };
 export async function fetchPosts() {
   try {
     const response = await api.get("/posts");
-    console.log(response);
-    return response;
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -36,7 +19,6 @@ export async function fetchPosts() {
 export const fetchBucklist = async () => {
   try {
     const bucketList = await AsyncStorage.getItem('habiba.hamed') //the key should be the username of the user or token of logged in user
-    //console.log('done async'); 
     return bucketList != null ? JSON.parse(bucketList) : [] //if no items in bucketlist of this user return empty array
   } catch(e) {
     // error reading value
