@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -6,17 +6,22 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import ImagePicker from '../components/ImagePicker';
 import {Picker} from '@react-native-picker/picker';
 import Colors from '../constants/Colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 const AddPost = ({navigation}) => {
   //const temp = useSelector((state) => state.posts);
   //console.log(temp);
+  const dispatch = useDispatch();
+  const {posts,nextId} = useSelector((state) => state.posts);
+  const {bucketlist, isLoading} = useSelector((state) => state.bucketlist);
   const [wish, setWish] = useState('');
+  
   const [images, setImages] = useState([
     {
       key: 1,
@@ -37,53 +42,68 @@ const AddPost = ({navigation}) => {
       imageName: 'france',
     },
   ]);
-  const bucketList = [
-    {id: '1', title: 'Venice'},
-    {id: '2', title: 'Paris'},
-    {id: '3', title: 'Barcelona'},
-  ];
+  //console.log(images);
+  // const bucketlist = [
+  //    'Venice','Paris','Barcelona',
+  // ];
   const [picked, setPicked] = useState(0);
-  const togglePicked = (imageKey, isPicked) => {
-    console.log('key', imageKey);
+  const updatePicked = (imageKey, isPicked) => {
+    //console.log('key', imageKey,'isPicked',isPicked);
     setImages(
       images.map((image) =>
-        image.key == imageKey
-          ? {...image, picked: isPicked}
-          : {...image, picked: false},
-      ),
+        (image.key == imageKey)? ({...image, picked: isPicked}): ({...image, picked: false})),
     );
+    //console.log(images);
   };
 
   const newPost = () => {
-    const pickedImageName = '';
+    let pickedImageName = '';
     images.forEach(function (image) {
       if (image.picked) {
-        pickedImageName = image.name;
+        pickedImageName = image.imageName;
       }
     });
-    if (pickedImageName) {
+    if (pickedImageName !== '') {
       //object payload
+      //console.log("picked image name",pickedImageName);
       const newPostObj = {
-        username: 'habiba.hamed',
+        id: nextId,
+        username: 'habiba.hamed', // to be changed to users info
         days: Math.floor(Math.random() * 100),
-        picture: 'default profile',
+        picture: 'default profile',// to be changed to users info
         image: pickedImageName,
         likes: Math.floor(Math.random() * 100),
         destination: wish,
       };
-      //dispatch();
+      //const updatedPosts = [...posts, newPostObj];
+      dispatch({type: 'ADD_POST', newPostObj}).then(navigation.navigate('NewsFeed'));
     } else {
       Alert.alert('Please pick an image to be posted');
     }
   };
   const renderImages = images.map((image) => {
     return (
-      <ImagePicker key={image.key} image={image} togglePicked={togglePicked} />
+      <ImagePicker key={image.key} image={image} togglePicked={updatePicked} />
     );
   });
-  const renderList = bucketList.map((item) => {
-    return <Picker.Item label={item.title} value={item.title} />;
+  const renderList = bucketlist.map((item) => {
+    return <Picker.Item key={item} label={item} value={item} />;
   });
+
+  useEffect(() => {
+    dispatch({type: 'FETCH_BUCKETLIST'});
+  }, []);
+  if (isLoading) {
+    return (
+      <View>
+        <ActivityIndicator
+          size="large"
+          loading={isLoading}
+          color={Colors.secondaryColor}
+        />
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <ScrollView horizontal style={styles.imagesList}>

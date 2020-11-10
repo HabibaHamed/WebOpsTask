@@ -23,7 +23,7 @@ const NewsFeed = ({navigation}) => {
     if (post2.days>post1.days) return -1;
     return 0;
   }
-  const renderList = posts.slice().sort(latest).map(post => (<Post key={post.username} post={post}/>));
+  const renderList = posts.slice().sort(latest).map(post => (<Post key={post.id} post={post}/>));
   if (isLoading) {
     return (
       <View>

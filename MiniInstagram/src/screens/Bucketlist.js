@@ -22,9 +22,8 @@ const Bucketlist = () => {
     dispatch({type:'ADDTO_BUCKETLIST',updatedList})
   };
   useEffect(() => {     
-   // dispatch({type:'CLEAR_BUCKETLIST'});
-      dispatch({type:'FETCH_BUCKETLIST'}); //check for async/await to stop loading till bucketlist get fetched
-  
+    //dispatch({type:'CLEAR_BUCKETLIST'});
+      dispatch({type:'FETCH_BUCKETLIST'});
   }, []);
   const renderList = bucketlist.map(itemList=>(<ListItem key={itemList} item={itemList}/>));
   if (isLoading) {

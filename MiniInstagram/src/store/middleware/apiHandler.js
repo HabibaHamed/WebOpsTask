@@ -10,7 +10,16 @@ const api = axios.create({
 })
 export async function fetchPosts() {
   try {
-    const response = await api.get("/posts");
+    const response = await api.get("/posts?_sort=id&_order=asc");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+export async function addNewPost (newPosts){
+  try {
+    console.log('check api',newPosts);
+    const response = await api.post("/posts",newPosts);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -34,6 +43,17 @@ export const addBucketlist = async (newList) =>{
     // save error
   }
   
+}
+export const removeBucketlist = async (removeItem) =>{
+  try {
+    //let jsonValue = JSON.stringify(newList)
+    const bucketlist = await AsyncStorage.getItem('habiba.hamed')
+    const newList = JSON.parse(bucketList).filter(function(value, index, arr){ return value !== removeItem;});
+    const jsonValue = JSON.stringify(newList);
+    await AsyncStorage.setItem('habiba.hamed', jsonValue);
+  } catch(e) {
+    // save error
+  }
 }
 //temp if want to erase the storage data 
 export const clearAll = async () => {

@@ -2,20 +2,24 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const postsSlice = createSlice({
   name: 'posts',
-  initialState: {posts:[]}, //get all posts
+  initialState: {posts:[],nextId:1}, //get all posts
   reducers: {
     getPosts(state, action) {
       //console.log("posts reducer",action.payload);
-      state.posts = action.payload; //assign state to the initial posts arrays
+      const arrayPosts = action.payload
+      state.posts = arrayPosts; //assign state to the initial posts arrays
       state.isLoading = false;
+      state.nextId = arrayPosts[arrayPosts.length -1].id+1;
     },
-    // addPost(state, action) {
-    //   const {username, picture,destination,likes,date} = action.payload;
-    //   state.push({username:username, picture:picture, destination: destination,likes:likes,date:date});
-    // },
+    addPost(state, action) {
+      //update nextId
+      state.nextId++;
+      state.posts = [...state.posts,action.payload];
+      console.log(state.posts);
+    },
   },
 });
 
-export const {getPosts} = postsSlice.actions;
+export const {getPosts,addPost} = postsSlice.actions;
 
 export default postsSlice.reducer;
