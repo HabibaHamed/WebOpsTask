@@ -28,7 +28,7 @@ const ImagePicker = ({image, togglePicked}) => {
       ]}
       onPress={toggleChoice}>
       <Image
-        source={image.dist}
+        source={{uri:image.dist}}
         resizeMode="contain"
         style={[
           styles.picture,

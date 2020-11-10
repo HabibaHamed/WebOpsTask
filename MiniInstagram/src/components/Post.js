@@ -17,7 +17,7 @@ const Post = ({post}) => {
         <View style={styles.info}>
           <View style={styles.pictureContainer}>
             <Image
-              source={getImages(post.picture)}
+              source={{uri:post.picture}}
               resizeMode="contain"
               style={[styles.picture,{width: windowWidth*0.1, height: windowWidth*0.1,borderRadius:windowWidth * 0.6}]}
             />
@@ -29,10 +29,10 @@ const Post = ({post}) => {
 
       <View style={styles.imageContainer}>
         <Image
-          source={getImages(post.image)}
+          source={{uri: post.image}}
           //style={styles.image}
           resizeMode="contain"
-          style={{height: windowWidth*0.5}}
+          style={{width:400,height: windowWidth*0.5,backgroundColor:'black'}}
         />
       </View>
       <View style={styles.footer}>
@@ -65,11 +65,11 @@ const styles = StyleSheet.create({
     //alignItems: 'center',
   },
   imageContainer: {
-    width: '100%',
+    //width: '100%',
     //paddingHorizontal:20,
     //paddingTop:20,
     // marginVertical:10
-    backgroundColor: 'white',
+    backgroundColor: 'red',
     alignItems: 'center',
   },
   footer: {

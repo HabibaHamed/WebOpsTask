@@ -47,8 +47,10 @@ export const addBucketlist = async (newList) =>{
 export const removeBucketlist = async (removeItem) =>{
   try {
     //let jsonValue = JSON.stringify(newList)
-    const bucketlist = await AsyncStorage.getItem('habiba.hamed')
-    const newList = JSON.parse(bucketList).filter(function(value, index, arr){ return value !== removeItem;});
+    //console.log("remove bucketlist");
+    const bucketlist = await AsyncStorage.getItem('habiba.hamed');
+    const newList = JSON.parse(bucketlist).filter(function(value, index, arr){ return value !== removeItem;});
+    //console.log("remove bucketlist",newList,"check");
     const jsonValue = JSON.stringify(newList);
     await AsyncStorage.setItem('habiba.hamed', jsonValue);
   } catch(e) {

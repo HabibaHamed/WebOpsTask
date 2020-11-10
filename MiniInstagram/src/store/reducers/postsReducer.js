@@ -10,6 +10,7 @@ const postsSlice = createSlice({
       state.posts = arrayPosts; //assign state to the initial posts arrays
       state.isLoading = false;
       state.nextId = arrayPosts[arrayPosts.length -1].id+1;
+      console.log("posts reducer",state.posts);
     },
     addPost(state, action) {
       //update nextId

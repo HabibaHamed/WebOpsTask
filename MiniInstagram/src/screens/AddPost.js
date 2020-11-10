@@ -18,26 +18,27 @@ const AddPost = ({navigation}) => {
   //const temp = useSelector((state) => state.posts);
   //console.log(temp);
   const dispatch = useDispatch();
-  const {posts,nextId} = useSelector((state) => state.posts);
+  const {posts, nextId} = useSelector((state) => state.posts);
   const {bucketlist, isLoading} = useSelector((state) => state.bucketlist);
   const [wish, setWish] = useState('');
-  
+
   const [images, setImages] = useState([
     {
       key: 1,
-      dist: require('../assets/images/venice.jpg'),
+      dist: 'https://img.etimg.com/thumb/msid-66129697,width-640,resizemode-4,imgsize-342241/how-to-get-your-trips-sponsored.jpg)',
       picked: false,
       imageName: 'italy',
     },
     {
       key: 2,
-      dist: require('../assets/images/egypt.jpg'),
+      dist: 'https://www.intrepidtravel.com/sites/intrepid/files/styles/low-quality/public/Intrepid%20Travel-Egypt-Abu-Simbel-137_0.jpg',
       picked: false,
       imageName: 'egypt',
     },
     {
       key: 3,
-      dist: require('../assets/images/paris.jpg'),
+      dist:
+        'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2019%2F08%2Fsolo-travel-paris-MOBILEMOONS0819.jpg',
       picked: false,
       imageName: 'france',
     },
@@ -51,32 +52,35 @@ const AddPost = ({navigation}) => {
     //console.log('key', imageKey,'isPicked',isPicked);
     setImages(
       images.map((image) =>
-        (image.key == imageKey)? ({...image, picked: isPicked}): ({...image, picked: false})),
+        image.key == imageKey
+          ? {...image, picked: isPicked}
+          : {...image, picked: false},
+      ),
     );
     //console.log(images);
   };
 
   const newPost = () => {
-    let pickedImageName = '';
+    let pickedImageUrl = '';
     images.forEach(function (image) {
       if (image.picked) {
-        pickedImageName = image.imageName;
+        pickedImageUrl = image.dist;
       }
     });
-    if (pickedImageName !== '') {
+    if (pickedImageUrl !== '') {
       //object payload
       //console.log("picked image name",pickedImageName);
       const newPostObj = {
         id: nextId,
         username: 'habiba.hamed', // to be changed to users info
         days: Math.floor(Math.random() * 100),
-        picture: 'default profile',// to be changed to users info
-        image: pickedImageName,
+        picture: 'default profile', // to be changed to users info
+        image: pickedImageUrl,
         likes: Math.floor(Math.random() * 100),
         destination: wish,
       };
       //const updatedPosts = [...posts, newPostObj];
-      dispatch({type: 'ADD_POST', newPostObj}).then(navigation.navigate('NewsFeed'));
+      dispatch({type: 'ADD_POST', newPostObj});
     } else {
       Alert.alert('Please pick an image to be posted');
     }
