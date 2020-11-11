@@ -10,7 +10,11 @@ const postsSlice = createSlice({
       const arrayPosts = action.payload
       state.posts = arrayPosts; //assign state to the initial posts arrays
       state.isLoading = false;
+      state.isSuccessful = true;
       state.nextId = arrayPosts[arrayPosts.length -1].id+1;
+    },
+    getPostsFailed(state,action){
+      state.isSuccessful = false;
     },
     addPost(state, action) {
       state.nextId++;
@@ -19,6 +23,6 @@ const postsSlice = createSlice({
   },
 });
 
-export const {getPosts,addPost} = postsSlice.actions;
+export const {getPosts,addPost,getPostsFailed} = postsSlice.actions;
 
 export default postsSlice.reducer;

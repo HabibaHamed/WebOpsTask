@@ -25,24 +25,6 @@
       "image": "https://curlytales.com/wp-content/uploads/2020/08/Untitled-2020-08-07T113928.693.jpg",
       "likes": 44,
       "destination": ""
-    },
-    {
-      "id": 3,
-      "username": "habiba.hamed",
-      "days": 6,
-      "picture": "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-      "image": "https://www.intrepidtravel.com/sites/intrepid/files/styles/low-quality/public/Intrepid%20Travel-Egypt-Abu-Simbel-137_0.jpg",
-      "likes": 80,
-      "destination": "cairo"
-    },
-    {
-      "id": 4,
-      "username": "habiba.hamed",
-      "days": 47,
-      "picture": "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-      "image": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2019%2F08%2Fsolo-travel-paris-MOBILEMOONS0819.jpg",
-      "likes": 19,
-      "destination": ""
     }
   ]
 }

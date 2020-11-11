@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const apiUrl = 'http://localhost:3000';
 const api = axios.create({
   baseURL: 'http://10.0.2.2:3000', //to be changed to localhost after finishing debugging
+  timeout: 1000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -15,6 +16,7 @@ export async function login(user) {
   try {
     console.log('login api');
     const response = await api.get('/users');
+    //console.log(response);
     if ( //or use email and password in header
       response.data.email === user.email &&
       response.data.password === user.password
@@ -22,7 +24,11 @@ export async function login(user) {
       console.log('log in successful');
       return response.data;
     }
+    else{
+      Alert.alert("Wrong Username or password");
+    }
   } catch (error) {
+    Alert.alert("Login failed, please try again");
     console.log(error);
   }
 }
@@ -34,6 +40,7 @@ export async function fetchPosts() {
     return response.data;
   } catch (error) {
     console.log(error);
+    return "Fetch_failed";
   }
 }
 export async function addNewPost(newPosts) {
@@ -43,6 +50,7 @@ export async function addNewPost(newPosts) {
     return response.data;
   } catch (error) {
     console.log(error);
+    return 'Add_failed';
   }
 }
 
@@ -52,7 +60,8 @@ export const fetchBucklist = async () => {
     const bucketList = await AsyncStorage.getItem('habiba.hamed'); //the key should be the username of the user or token of logged in user
     return bucketList != null ? JSON.parse(bucketList) : []; //if no items in bucketlist of this user return empty array
   } catch (e) {
-    // error reading value
+    console.log(error);
+    return "Fetch_failed";
   }
 };
 
@@ -61,7 +70,8 @@ export const addBucketlist = async (newList) => {
     const jsonValue = JSON.stringify(newList);
     await AsyncStorage.setItem('habiba.hamed', jsonValue);
   } catch (e) {
-    // save error
+    console.log(error);
+    return 'Add_failed';
   }
 };
 export const removeBucketlist = async (removeItem) => {
