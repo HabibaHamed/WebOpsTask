@@ -1,7 +1,7 @@
+/**Custom image component for picking an image to be posted */
+
 import React, {useState} from 'react';
 import {
-  View,
-  Text,
   Image,
   StyleSheet,
   useWindowDimensions,
@@ -11,12 +11,16 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../constants/Colors';
 
 const ImagePicker = ({image, togglePicked}) => {
-  //let pickedFlag = image.key===picked;
   const [isPicked, setIsPicked] = useState(false);
-  const toggleChoice = () => {setIsPicked((previousState) => !previousState);console.log(isPicked);togglePicked(image.key,isPicked)};
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
-  //const toggleChoice = () =>(picked=!picked);
+
+  const toggleChoice = () => {
+    setIsPicked((previousState) => !previousState);
+    console.log(isPicked);
+    togglePicked(image.key, isPicked);
+  };
+
   return (
     <TouchableOpacity
       style={[
@@ -28,7 +32,7 @@ const ImagePicker = ({image, togglePicked}) => {
       ]}
       onPress={toggleChoice}>
       <Image
-        source={{uri:image.dist}}
+        source={{uri: image.dist}}
         resizeMode="contain"
         style={[
           styles.picture,
@@ -46,11 +50,9 @@ const ImagePicker = ({image, togglePicked}) => {
 };
 const styles = StyleSheet.create({
   container: {
-    //flex:1,
     justifyContent: 'space-evenly',
     alignItems: 'flex-end',
     marginHorizontal: 5,
-    //backgroundColor:'red',
     padding: 5,
   },
 });

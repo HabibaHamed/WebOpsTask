@@ -1,8 +1,9 @@
-import {takeEvery, take, call, takeLatest, put} from 'redux-saga/effects';
+import {takeEvery, take, call, takeLatest, put, all} from 'redux-saga/effects';
 import * as apiHandler from './apiHandler';
 import * as RootNavigation from '../../navigation/RootNavigation';
 import {Alert} from 'react-native';
 
+/**Saga function for login action */
 function* login(input) {
   const payload = yield call(apiHandler.login, input);
 
@@ -11,6 +12,8 @@ function* login(input) {
     yield put({type: 'user/logIn', payload});
   }
 }
+
+/**Sagas functions for posts' actions */
 function* loadPosts() {
   const response = yield call(apiHandler.fetchPosts);
   const testResponses = [response, 'Fetch_failed']; //random response types for testing refresh feature
@@ -36,6 +39,8 @@ function* addPost(input) {
     Alert.alert("Add post failed, please try again");
   }
 }
+
+/**Sagas functions for bucketlist's actions */
 function* clearBucketList() {
   const payload = yield call(apiHandler.clearAll);
 }
@@ -66,13 +71,14 @@ export default function* rootSaga() {
   console.log('Hello Sagas!');
   while (true) {
     const {user} = yield take('LOG_IN');
-    //console.log(user);
     yield call(login, user);
 
     yield takeLatest('FETCH_POSTS', loadPosts);
+    yield takeEvery('ADD_POST', addPost);
+
     yield takeEvery('CLEAR_BUCKETLIST', clearBucketList); //temp for clearing bucketlist
     yield takeEvery('FETCH_BUCKETLIST', loadBucketList);
     yield takeEvery('ADDTO_BUCKETLIST', addToBucketList);
-    yield takeEvery('ADD_POST', addPost);
+    
   }
 }

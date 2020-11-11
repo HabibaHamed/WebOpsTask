@@ -7,7 +7,7 @@ const userSlice = createSlice({
   initialState: {user:{},isSignedIn:false},
   reducers: {
     logIn(state, action) {
-      state.user ={...state.user, ...action.payload}; //assign state to the initial bucketlist array
+      state.user ={...state.user, ...action.payload};
       state.isSignedIn = true;
     },
     // logOut(state, action) {

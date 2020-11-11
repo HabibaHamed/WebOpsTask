@@ -1,20 +1,30 @@
 {
-    "profile": { "username": "habiba.hamed" , "password":"123456","name":"Habiba Hamed"},
-    "posts" : [
-      {
-        "username": "malak.hussein",
-        "days" : "20",
-        "picture": "require('../assets/images/profile-picture.png')",
-        "image": "require('../assets/images/venice.jpg')",
-        "likes": 23,
-        "destination":""
-      },
-      {
-        "username": "aly.ibrahim",
-        "days" : "45",
-        "picture": "require('../assets/images/profile-picture.png')",
-        "image": "require('../assets/images/india.jpg')",
-        "likes": 44,
-        "destination":""
-      }]
-  }
+  "users": {
+    "name": "Habiba Hamed",
+    "username": "habiba.hamed",
+    "password": "12345",
+    "email": "habiba@gmail.com",
+    "age": 23,
+    "picture": "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+  },
+  "posts": [
+    {
+      "id": 1,
+      "username": "malak.hussein",
+      "days": "20",
+      "picture": "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
+      "image": "https://img.etimg.com/thumb/msid-66129697,width-640,resizemode-4,imgsize-342241/how-to-get-your-trips-sponsored.jpg",
+      "likes": 23,
+      "destination": ""
+    },
+    {
+      "id": 2,
+      "username": "aly.ibrahim",
+      "days": "45",
+      "picture": "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
+      "image": "https://curlytales.com/wp-content/uploads/2020/08/Untitled-2020-08-07T113928.693.jpg",
+      "likes": 44,
+      "destination": ""
+    }
+  ]
+}
