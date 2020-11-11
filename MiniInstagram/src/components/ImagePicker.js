@@ -11,14 +11,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../constants/Colors';
 
 const ImagePicker = ({image, togglePicked}) => {
-  const [isPicked, setIsPicked] = useState(false);
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
 
   const toggleChoice = () => {
-    setIsPicked((previousState) => !previousState);
-    console.log(isPicked);
-    togglePicked(image.key, isPicked);
+    togglePicked(image.key, !image.picked);
   };
 
   return (
