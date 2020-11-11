@@ -1,22 +1,26 @@
+/**Profile screen is responsible for displaying user's info */
+
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Image, useWindowDimensions} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
 import Colors from '../constants/Colors';
+import Post from '../components/Post';
 
 const Profile = () => {
-  const [user, setUser] = useState({
-    name: 'Habiba Hamed',
-    email: 'habiba@gmail.com',
-    age: 23,
-    picture: require('../assets/images/profile-picture.png'),
-  });
+  const{user} = useSelector((state)=>state.user);
+  const {posts,isLoading} = useSelector((state)=>state.posts);
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
+  
+  const usersPosts = posts.filter(function(post){ return post.username === user.username});
+
+  const renderPosts = usersPosts.map(post =>(<Post key={post.id} post={post}/>));
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={user.picture}
-          //style={styles.image}
+          source={{uri:user.picture}}
           resizeMode="contain"
           style={[styles.image,{width: windowWidth * 0.5 ,height: windowHeight*0.2,borderRadius:windowWidth * 0.5 }]}
         />
@@ -26,6 +30,9 @@ const Profile = () => {
         <Text style={styles.email}>{user.email}</Text>
         <Text style={styles.age}>{user.age} years old</Text>
       </View>
+      <ScrollView style={styles.userPosts}>
+        {renderPosts}
+      </ScrollView>
     </View>
   );
 };
@@ -36,17 +43,18 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: '100%',
-    //paddingHorizontal:20,
     paddingTop:20,
     marginVertical:10
-    //backgroundColor: 'red',
   },
   info: {
     paddingHorizontal: 30,
     paddingBottom:10,
-    //marginVertical: 5,
-    borderBottomWidth: 1,
+    borderBottomWidth: 1.5,
     borderBottomColor: Colors.secondaryColor,
+  },
+  userPosts:{
+    marginVertical:10,
+
   },
   name: {
     fontSize: 20,
@@ -54,7 +62,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   email: {
-    //marginVertical:2,
     color: 'dimgrey',
   },
   age: {

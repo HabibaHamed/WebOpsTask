@@ -1,1 +1,3 @@
-export const FETCHPOSTS = {type:'FETCH_POSTS'};
+export default {
+    login : 'LOG_IN',
+};

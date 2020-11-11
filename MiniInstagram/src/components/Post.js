@@ -1,6 +1,7 @@
+/**Post Component for generating a post view*/
+
 import React from 'react';
 import {View, Text, StyleSheet, Image,useWindowDimensions} from 'react-native';
-import {getImages} from '../data/imagePaths';
 
 const Post = ({post}) => {
   const windowWidth = useWindowDimensions().width;
@@ -30,9 +31,8 @@ const Post = ({post}) => {
       <View style={styles.imageContainer}>
         <Image
           source={{uri: post.image}}
-          //style={styles.image}
           resizeMode="contain"
-          style={{width:400,height: windowWidth*0.5,backgroundColor:'black'}}
+          style={{width:windowWidth,height: windowWidth*0.5,backgroundColor:'black'}}
         />
       </View>
       <View style={styles.footer}>
@@ -44,7 +44,6 @@ const Post = ({post}) => {
 const styles = StyleSheet.create({
   container: {},
   header: {
-    //backgroundColor:'lightgrey',
     backgroundColor: 'white',
     marginVertical: 2,
     flexDirection: 'row',
@@ -57,26 +56,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   pictureContainer: {
-    //width: '100%',
-    //paddingHorizontal:20,
-    //paddingTop:20,
     marginHorizontal:10,
-    //backgroundColor: 'black',
-    //alignItems: 'center',
   },
   imageContainer: {
-    //width: '100%',
-    //paddingHorizontal:20,
-    //paddingTop:20,
-    // marginVertical:10
     backgroundColor: 'red',
     alignItems: 'center',
   },
   footer: {
-    //backgroundColor:'lightgrey',
     backgroundColor: 'white',
     marginVertical: 2,
-
     padding: 10,
   },
 });

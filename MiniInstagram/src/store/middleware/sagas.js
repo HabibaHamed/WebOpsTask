@@ -1,19 +1,30 @@
 import {takeEvery, take, call, takeLatest, put} from 'redux-saga/effects';
 import * as apiHandler from './apiHandler';
 import * as RootNavigation from '../../navigation/RootNavigation';
+import{Alert} from 'react-native';
 
+
+function* login(input){
+  const payload = yield call(apiHandler.login,input);
+
+  //Login successful
+  if(payload){ 
+    yield put({type: 'user/logIn', payload});
+  }
+  //Login failed
+  else{
+    Alert.alert("Wrong Username or password");
+  }
+}
 function* loadPosts() {
   const payload = yield call(apiHandler.fetchPosts);
-  //console.log(payload);
   yield put({type: 'posts/getPosts', payload});
 }
 function* addPost(input) {
   const payload = input.newPostObj;
-  console.log('add post');
   yield call(apiHandler.addNewPost, payload);
   yield put({type: 'posts/addPost', payload});
   if (payload.destination !== '') {
-    console.log("destination not empty");
     yield call(apiHandler.removeBucketlist, payload.destination);
     yield put({type: 'bucketlist/removeBucketlist', payload});
   }
@@ -36,9 +47,15 @@ function* addToBucketList(input) {
 
 export default function* rootSaga() {
   console.log('Hello Sagas!');
+  while (true) {
+  const {user} = yield take('LOG_IN');
+  //console.log(user);
+  yield call(login,user);
+
   yield takeLatest('FETCH_POSTS', loadPosts);
   yield takeEvery('CLEAR_BUCKETLIST', clearBucketList); //temp for clearing bucketlist
   yield takeEvery('FETCH_BUCKETLIST', loadBucketList);
   yield takeEvery('ADDTO_BUCKETLIST', addToBucketList);
   yield takeEvery('ADD_POST', addPost);
+  }
 }

@@ -1,3 +1,5 @@
+/**Screen for adding a post and optional wish from bucketlist*/
+
 import React, {useEffect, useState} from 'react';
 import {
   View,
@@ -15,13 +17,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
 
 const AddPost = ({navigation}) => {
-  //const temp = useSelector((state) => state.posts);
-  //console.log(temp);
   const dispatch = useDispatch();
+
+  //store states and components states
   const {posts, nextId} = useSelector((state) => state.posts);
   const {bucketlist, isLoading} = useSelector((state) => state.bucketlist);
+  const{user} = useSelector((state)=>state.user);
   const [wish, setWish] = useState('');
-
   const [images, setImages] = useState([
     {
       key: 1,
@@ -43,13 +45,10 @@ const AddPost = ({navigation}) => {
       imageName: 'france',
     },
   ]);
-  //console.log(images);
-  // const bucketlist = [
-  //    'Venice','Paris','Barcelona',
-  // ];
-  const [picked, setPicked] = useState(0);
+  //const [picked, setPicked] = useState(0);
+
+  //helper functions
   const updatePicked = (imageKey, isPicked) => {
-    //console.log('key', imageKey,'isPicked',isPicked);
     setImages(
       images.map((image) =>
         image.key == imageKey
@@ -57,9 +56,7 @@ const AddPost = ({navigation}) => {
           : {...image, picked: false},
       ),
     );
-    //console.log(images);
   };
-
   const newPost = () => {
     let pickedImageUrl = '';
     images.forEach(function (image) {
@@ -68,23 +65,22 @@ const AddPost = ({navigation}) => {
       }
     });
     if (pickedImageUrl !== '') {
-      //object payload
-      //console.log("picked image name",pickedImageName);
       const newPostObj = {
         id: nextId,
-        username: 'habiba.hamed', // to be changed to users info
+        username: user.username, // to be changed to users info
         days: Math.floor(Math.random() * 100),
-        picture: 'default profile', // to be changed to users info
+        picture: user.picture, // to be changed to users info
         image: pickedImageUrl,
         likes: Math.floor(Math.random() * 100),
         destination: wish,
       };
-      //const updatedPosts = [...posts, newPostObj];
       dispatch({type: 'ADD_POST', newPostObj});
     } else {
       Alert.alert('Please pick an image to be posted');
     }
   };
+
+  //rendering list functions (FlatList better option instead)
   const renderImages = images.map((image) => {
     return (
       <ImagePicker key={image.key} image={image} togglePicked={updatePicked} />
@@ -125,7 +121,7 @@ const AddPost = ({navigation}) => {
           {renderList}
         </Picker>
         <TouchableOpacity
-          style={styles.addPostContainer} //navigation.navigate('NewsFeed')}>
+          style={styles.addPostContainer}
           onPress={newPost}>
           <Icon name="add" size={40} color="white" />
           <Text style={styles.addPostText}>Add Post</Text>
@@ -142,16 +138,11 @@ const styles = StyleSheet.create({
   },
   imagesList: {
     flexDirection: 'row',
-    //justifyContent:'center',
-    //alignItems:'center',
-    //backgroundColor:'black',
     flex: 2,
-    //width:'100%'
   },
   pickWish: {
     flex: 1,
     padding: 10,
-    //backgroundColor:'red',
     margin: 10,
   },
   headerWish: {
@@ -170,7 +161,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingVertical: 10,
     color: 'white',
-    //backgroundColor:'black'
   },
 });
 export default AddPost;

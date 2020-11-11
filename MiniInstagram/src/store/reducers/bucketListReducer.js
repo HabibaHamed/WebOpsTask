@@ -1,3 +1,5 @@
+/*Reducer reponsible for fetching and updating the bucketlist*/
+
 import {createSlice} from '@reduxjs/toolkit';
 
 const bucketlistSlice = createSlice({
