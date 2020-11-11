@@ -16,7 +16,7 @@ import Colors from '../constants/Colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
 
-const AddPost = ({navigation}) => {
+const AddPost = () => {
   const dispatch = useDispatch();
 
   //store states and components states

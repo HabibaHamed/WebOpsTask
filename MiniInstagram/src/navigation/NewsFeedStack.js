@@ -1,3 +1,5 @@
+/**Stack navigator to navigate between newsfeed and adding a post screens */
+
 import React from 'react';
 import {View, Text} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -20,7 +22,7 @@ const NewsFeedStack = ({navigation, route}) => {
         fontWeight: 'bold',
       },}}>
       <Stack.Screen name="NewsFeed" component={NewsFeed} options={{title:'Newsfeed'}}/>
-      <Stack.Screen name="AddPost" component={AddPost} options={{title:'Add new post'}}/>
+      <Stack.Screen name="AddPost" component={AddPost} options={{title:'Add Post'}}/>
     </Stack.Navigator>
   );
 };

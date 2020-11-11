@@ -14,8 +14,10 @@ import Colors from '../constants/Colors';
 import Post from '../components/Post';
 import {ActivityIndicator} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
-const NewsFeed = ({navigation}) => {
+const NewsFeed = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const {posts, isLoading, isSuccessful} = useSelector((state) => state.posts);
 
@@ -28,8 +30,6 @@ const NewsFeed = ({navigation}) => {
 
   //helper function
   function latest(post1, post2) {
-    // if (post1.date.getTime() > post2.date.getTime()) return -1;
-    // if (post2.date.getTime() > post1.date.getTime()) return 1;
     if (post1.days > post2.days) return 1;
     if (post2.days > post1.days) return -1;
     return 0;

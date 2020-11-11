@@ -1,24 +1,23 @@
-import React,{useState,useEffect} from 'react';
-import {View, Text} from 'react-native';
+/*Tab navigator to navigate between application's main screens*/
+
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import NewsFeedStack from '../navigation/NewsFeedStack';
 import Bucketlist from '../screens/Bucketlist';
 import Profile from '../screens/Profile';
-import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import {getFocusedRouteNameFromRoute, useNavigation, useRoute} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../constants/Colors';
-import { ActivityIndicator } from 'react-native';
-import ActionTypes from '../constants/ActionTypes';
-import {useDispatch} from 'react-redux';
-import store from '../store/store';
 
 const Tab = createBottomTabNavigator();
+
+//helper function
 const getHeaderTitle = (route) => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'NewsFeedStack';
 
   switch (routeName) {
     case 'NewsFeedStack':
-      return 'NewsFeed';
+      return 'NewsFeedStack';
     case 'Profile':
       return 'Profile';
     case 'Bucketlist':
@@ -26,11 +25,13 @@ const getHeaderTitle = (route) => {
   }
 };
 
-const ApplicationTab = ({navigation, route}) => {
+const ApplicationTab = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
   
   React.useLayoutEffect(() => {
     const header = getHeaderTitle(route);
-    header !== 'NewsFeed'
+    header !== 'NewsFeedStack'
       ? navigation.setOptions({
           headerShown: true,
           headerTitle: header,

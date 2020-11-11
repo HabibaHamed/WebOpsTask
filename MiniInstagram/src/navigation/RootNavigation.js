@@ -1,4 +1,5 @@
-// RootNavigation.js
+/**Root navigation to access navigation outside components */
+
 import * as React from 'react';
 
 export const navigationRef = React.createRef();

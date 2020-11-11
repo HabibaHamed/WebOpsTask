@@ -1,3 +1,5 @@
+/**Customized input component */
+
 import React from 'react';
 import {useWindowDimensions} from 'react-native';
 import {StyleSheet, TextInput, View} from 'react-native';

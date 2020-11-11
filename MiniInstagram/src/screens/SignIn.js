@@ -7,7 +7,6 @@ import Input from '../components/Input';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import Colors from '../constants/Colors';
 import { useDispatch } from 'react-redux';
-import ActionTypes from '../constants/ActionTypes';
 
 const SignIn = () => {
   const dispatch = useDispatch();
